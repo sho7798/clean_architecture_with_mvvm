@@ -3,10 +3,10 @@ import 'package:clean_architecture_mvvm/presentation/login/login.dart';
 import 'package:clean_architecture_mvvm/presentation/main/main_view.dart';
 import 'package:clean_architecture_mvvm/presentation/on_boarding/onboarding.dart';
 import 'package:clean_architecture_mvvm/presentation/register/register.dart';
+import 'package:clean_architecture_mvvm/presentation/resources/strings_manager.dart';
 import 'package:clean_architecture_mvvm/presentation/splash/splash.dart';
 import 'package:clean_architecture_mvvm/presentation/store_details/store_details.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class Routes {
   static const String splashRoute = "/";
@@ -44,8 +44,8 @@ class RouteGenerator {
   static Route<dynamic> undefinedRoute() {
     return MaterialPageRoute(
       builder: (_) => Scaffold(
-        appBar: AppBar(title: Text('No Route Found.')),
-        body: Center(child: Text('No Route Found')),
+        appBar: AppBar(title: Text(AppStrings.noRouteFound)),
+        body: Center(child: Text(AppStrings.noRouteFound)),
       ),
     );
   }
