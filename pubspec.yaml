@@ -18,7 +18,7 @@ dependencies:
   retrofit: ^4.7.3
   analyzer: ^8.4.0
   dio: ^5.9.0
-  json_serializable: ^6.11.1
+  json_annotation: ^4.9.0
 
 dev_dependencies:
   flutter_test:
@@ -27,6 +27,7 @@ dev_dependencies:
   #dev-dependencies for network layer
   retrofit_generator: ^10.0.6
   build_runner: ^2.10.0  
+  json_serializable: ^6.11.1
 
   flutter_lints: ^5.0.0
 
