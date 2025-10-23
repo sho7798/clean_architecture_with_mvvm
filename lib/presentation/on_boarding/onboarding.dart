@@ -1,4 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:clean_architecture_mvvm/domain/model/model.dart';
 import 'package:clean_architecture_mvvm/presentation/resources/routes_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,22 +23,22 @@ class _OnBoardingViewState extends State<OnBoardingView> {
   List<SliderObject> _getSliderData() => [
     SliderObject(
       title: AppStrings.onBoardingSubTitle1,
-      subtitle: AppStrings.onBoardingSubTitle1,
+      subTitle: AppStrings.onBoardingSubTitle1,
       image: ImageAssets.onboardingLogo1,
     ),
     SliderObject(
       title: AppStrings.onBoardingSubTitle2,
-      subtitle: AppStrings.onBoardingSubTitle2,
+      subTitle: AppStrings.onBoardingSubTitle2,
       image: ImageAssets.onboardingLogo2,
     ),
     SliderObject(
       title: AppStrings.onBoardingSubTitle3,
-      subtitle: AppStrings.onBoardingSubTitle3,
+      subTitle: AppStrings.onBoardingSubTitle3,
       image: ImageAssets.onboardingLogo3,
     ),
     SliderObject(
       title: AppStrings.onBoardingSubTitle4,
-      subtitle: AppStrings.onBoardingSubTitle4,
+      subTitle: AppStrings.onBoardingSubTitle4,
       image: ImageAssets.onboardingLogo4,
     ),
   ];
@@ -199,7 +199,7 @@ class OnBoardingPage extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(AppPadding.p8),
           child: Text(
-            sliderObject.subtitle ?? "",
+            sliderObject.subTitle ?? "",
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.labelLarge,
           ),
@@ -210,11 +210,4 @@ class OnBoardingPage extends StatelessWidget {
       ],
     );
   }
-}
-
-class SliderObject {
-  String? title;
-  String? subtitle;
-  String? image;
-  SliderObject({this.title, this.subtitle, this.image});
 }
