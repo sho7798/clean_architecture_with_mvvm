@@ -13,6 +13,8 @@ dependencies:
 
   cupertino_icons: ^1.0.8
   flutter_svg: ^2.2.1
+
+  #dependencies for network layer
   retrofit: ^4.7.3
   analyzer: ^8.4.0
   dio: ^5.9.0
@@ -22,6 +24,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  #dev-dependencies for network layer
   retrofit_generator: ^10.0.6
   build_runner: ^2.10.0  
 
