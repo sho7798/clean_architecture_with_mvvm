@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:clean_architecture_mvvm/app/functions.dart';
 import 'package:clean_architecture_mvvm/data/network/error_handler.dart';
 import 'package:clean_architecture_mvvm/data/network/failure.dart';
 import 'package:clean_architecture_mvvm/data/request/request.dart';
@@ -14,12 +15,13 @@ class LoginUsecase implements BaseUsecase<LoginUseCaseInput, Authentication> {
     LoginUseCaseInput input,
   ) async {
     try {
+      DeviceInfo deviceInfo = await getDeviceDetails();
       final result = await repository!.login(
         LoginRequest(
           email: input.email,
           password: input.password,
-          imei: 'imei',
-          deviceType: "deviceType",
+          imei: deviceInfo.identifier,
+          deviceType: deviceInfo.name,
         ),
       );
       return result;

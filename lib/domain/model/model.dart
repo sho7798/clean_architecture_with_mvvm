@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 class SliderObject {
   String? title;
   String? subTitle;
@@ -27,4 +28,11 @@ class Authentication {
   Contacts? contacts;
 
   Authentication({this.customer, this.contacts});
+}
+
+class DeviceInfo {
+  String? name;
+  String? identifier;
+  String? version;
+  DeviceInfo({this.name, this.identifier, this.version});
 }
