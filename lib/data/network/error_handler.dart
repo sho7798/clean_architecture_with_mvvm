@@ -1,6 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:clean_architecture_mvvm/data/network/failure.dart';
+import 'package:dio/dio.dart';
 
 enum DataSource {
   SUCCESS,
@@ -16,6 +17,56 @@ enum DataSource {
   SEND_TIMEOUT,
   CACHE_ERROR,
   NO_INTERNET_CONNECTION,
+  BAD_CERTIFICATE,
+  CONNECTION_ERROR,
+  DEFAULT,
+}
+
+class ErrorHandler implements Exception {
+  late Failure failure;
+
+  ErrorHandler.handle(dynamic error) {
+    if (error is DioException) {
+      // dio error so its error from response of the API
+      failure = _handleError(error);
+    } else {
+      // default error
+      failure = DataSource.DEFAULT.getFailure();
+    }
+  }
+
+  Failure _handleError(DioException error) {
+    switch (error.type) {
+      case DioExceptionType.connectionTimeout:
+        return DataSource.CONNECT_TIMEOUT.getFailure();
+      case DioExceptionType.sendTimeout:
+        return DataSource.SEND_TIMEOUT.getFailure();
+      case DioExceptionType.receiveTimeout:
+        return DataSource.RECEIVE_TIMEOUT.getFailure();
+      case DioExceptionType.badResponse:
+        switch (error.response?.statusCode) {
+          case ResponseCode.BAD_REQUEST:
+            return DataSource.BAD_REQUEST.getFailure();
+          case ResponseCode.FORBIDDEN:
+            return DataSource.FORBIDDEN.getFailure();
+          case ResponseCode.UNAUTHORISED:
+            return DataSource.UNAUTHORISED.getFailure();
+
+          case ResponseCode.INTERNAL_SERVER_ERROR:
+            return DataSource.INTERNAL_SERVER_ERROR.getFailure();
+          default:
+            return DataSource.DEFAULT.getFailure();
+        }
+      case DioExceptionType.cancel:
+        return DataSource.CANCEL.getFailure();
+      case DioExceptionType.unknown:
+        return DataSource.DEFAULT.getFailure();
+      case DioExceptionType.badCertificate:
+        return DataSource.BAD_CERTIFICATE.getFailure();
+      case DioExceptionType.connectionError:
+        return DataSource.CONNECTION_ERROR.getFailure();
+    }
+  }
 }
 
 extension DataSourceExtension on DataSource {
@@ -78,10 +129,28 @@ extension DataSourceExtension on DataSource {
           message: ResponseMessage.NO_INTERNET_CONNECTION,
         );
 
+      case DataSource.BAD_CERTIFICATE:
+        return Failure(
+          code: ResponseCode.DEFAULT,
+          message: ResponseMessage.DEFAULT,
+        );
+
+      case DataSource.CONNECTION_ERROR:
+        return Failure(
+          code: ResponseCode.CONNECTION_ERROR,
+          message: ResponseMessage.CONNECTION_ERROR,
+        );
+
+      case DataSource.DEFAULT:
+        return Failure(
+          code: ResponseCode.DEFAULT,
+          message: ResponseMessage.DEFAULT,
+        );
+
       default:
         return Failure(
-          code: ResponseCode.UNKNOWN,
-          message: ResponseMessage.UNKNOWN,
+          code: ResponseCode.DEFAULT,
+          message: ResponseMessage.DEFAULT,
         );
     }
   }
@@ -100,13 +169,15 @@ class ResponseCode {
       500; // failure, crash happened in server side
 
   // local status code
-  static const int UNKNOWN = -1;
+  static const int DEFAULT = -1;
   static const int CONNECT_TIMEOUT = -2;
   static const int CANCEL = -3;
   static const int RECEIVE_TIMEOUT = -4;
   static const int SEND_TIMEOUT = -5;
   static const int CACHE_ERROR = -6;
   static const int NO_INTERNET_CONNECTION = -7;
+  static const int BAD_CERTIFICATE = -8;
+  static const int CONNECTION_ERROR = -9;
 }
 
 class ResponseMessage {
@@ -126,7 +197,7 @@ class ResponseMessage {
       "something went wrong, try again later"; // failure, crash happened in server side
 
   // local status code
-  static const String UNKNOWN = "some thing went wrong, try again later";
+  static const String DEFAULT = "some thing went wrong, try again later";
   static const String CONNECT_TIMEOUT = "time out error, try again later";
   static const String CANCEL = "request was cancelled, try again later";
   static const String RECEIVE_TIMEOUT = "time out error, try again later";
@@ -134,4 +205,6 @@ class ResponseMessage {
   static const String CACHE_ERROR = "Cache error, try again later";
   static const String NO_INTERNET_CONNECTION =
       "Please check your internet connection";
+  static const String BAD_CERTIFICATE = "Certificate verification failed";
+  static const String CONNECTION_ERROR = "connection error , try again later";
 }
