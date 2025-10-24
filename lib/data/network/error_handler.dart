@@ -208,3 +208,8 @@ class ResponseMessage {
   static const String BAD_CERTIFICATE = "Certificate verification failed";
   static const String CONNECTION_ERROR = "connection error , try again later";
 }
+
+class ApiInternalStatus {
+  static const int SUCCESS = 0;
+  static const int FAILURE = 1;
+}
