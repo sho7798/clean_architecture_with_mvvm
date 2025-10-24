@@ -1,5 +1,5 @@
 {
-  "no_route_found": "No Route found",
+  "no_route_found": "No Route",
   "on_boarding_title1": "SEE THE BEST COURSE #1",
   "on_boarding_title2": "SEE THE BEST COURSE #2",
   "on_boarding_title3": "SEE THE BEST COURSE #3",
@@ -16,7 +16,7 @@
   "forgot_password_text": "Forgot Password",
   "register_text": "Not a member ? Sign up",
   "loading": "Loading....",
-  "retry_again": "Retry again",
+  "retry_again": "Retry Again",
   "error_occurred": "An Error Occurred",
   "ok": "Ok",
   "invalid_user_name": "Invalid User Name",
