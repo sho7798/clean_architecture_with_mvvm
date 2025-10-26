@@ -1,16 +1,21 @@
 import 'dart:async';
 
+import 'package:clean_architecture_mvvm/domain/usecase/login_usecase.dart';
 import 'package:clean_architecture_mvvm/presentation/base/baseviewmodel.dart';
 import 'package:clean_architecture_mvvm/presentation/common/freezed_data_classes.dart';
+import 'package:flutter/cupertino.dart';
 
-class LoginViewmodel extends BaseViewModel
+class LoginViewModel extends BaseViewModel
     with LoginViewModelInputs, LoginViewModelOutputs {
   StreamController userNameStreamController =
       StreamController<String>.broadcast();
   StreamController passwordStreamController =
       StreamController<String>.broadcast();
 
-  var loginObject = LoginObject(userName: "", password: "");
+  var loginObject = LoginObject(email: "", password: "");
+
+  LoginUsecase? loginUsecase;
+  LoginViewModel(this.loginUsecase);
 
   @override
   void dispose() {
@@ -30,9 +35,21 @@ class LoginViewmodel extends BaseViewModel
   Sink get inputUserName => userNameStreamController.sink;
 
   @override
-  login() {
-    // TODO: implement login
-    throw UnimplementedError();
+  login() async {
+    (await loginUsecase?.execute(
+      LoginUseCaseInput(
+        email: loginObject.email,
+        password: loginObject.password,
+      ),
+    ))?.fold(
+      (failure) =>
+          // left -> failure
+          debugPrint(failure.message),
+
+      (data) =>
+          // right -> success (data)
+          debugPrint(data.customer?.name),
+    );
   }
 
   @override

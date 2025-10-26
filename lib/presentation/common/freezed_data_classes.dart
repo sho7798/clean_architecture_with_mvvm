@@ -3,9 +3,9 @@ part 'freezed_data_classes.freezed.dart';
 
 @freezed
 class LoginObject with _$LoginObject {
-  LoginObject({required this.userName, required this.password});
+  LoginObject({required this.email, required this.password});
   @override
-  final String userName;
+  final String email;
   @override
   final String password;
 }

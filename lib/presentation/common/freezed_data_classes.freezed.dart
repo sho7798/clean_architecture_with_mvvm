@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$LoginObject {
 
- String get userName; String get password;
+ String get email; String get password;
 /// Create a copy of LoginObject
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $LoginObjectCopyWith<LoginObject> get copyWith => _$LoginObjectCopyWithImpl<Logi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is LoginObject&&(identical(other.userName, userName) || other.userName == userName)&&(identical(other.password, password) || other.password == password));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LoginObject&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,userName,password);
+int get hashCode => Object.hash(runtimeType,email,password);
 
 @override
 String toString() {
-  return 'LoginObject(userName: $userName, password: $password)';
+  return 'LoginObject(userName: $email, password: $password)';
 }
 
 
@@ -64,7 +64,7 @@ class _$LoginObjectCopyWithImpl<$Res>
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? userName = null,Object? password = null,}) {
   return _then(LoginObject(
-userName: null == userName ? _self.userName : userName // ignore: cast_nullable_to_non_nullable
+email: null == userName ? _self.email : userName // ignore: cast_nullable_to_non_nullable
 as String,password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
 as String,
   ));
