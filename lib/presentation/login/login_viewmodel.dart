@@ -11,6 +11,8 @@ class LoginViewModel extends BaseViewModel
       StreamController<String>.broadcast();
   StreamController passwordStreamController =
       StreamController<String>.broadcast();
+  StreamController isAllInputValidStreamController =
+      StreamController<void>.broadcast();
 
   var loginObject = LoginObject(userName: "", password: "");
 
@@ -21,6 +23,7 @@ class LoginViewModel extends BaseViewModel
   void dispose() {
     userNameStreamController.close();
     passwordStreamController.close();
+    isAllInputValidStreamController.close();
   }
 
   @override
@@ -33,6 +36,9 @@ class LoginViewModel extends BaseViewModel
 
   @override
   Sink get inputUserName => userNameStreamController.sink;
+
+  @override
+  Sink get inputIsAllInputValid => isAllInputValidStreamController.sink;
 
   @override
   login() async {
@@ -72,12 +78,25 @@ class LoginViewModel extends BaseViewModel
     (userName) => isUserNameValid(userName),
   );
 
+  @override
+  Stream<bool> get outputIsAllInputsValid =>
+      isAllInputValidStreamController.stream.map((_) => isAllInputsValid());
+
+  validate() {
+    inputIsAllInputValid.add(null);
+  }
+
   bool isPasswordValid(String password) {
     return password.isNotEmpty;
   }
 
   bool isUserNameValid(String userName) {
     return userName.isNotEmpty;
+  }
+
+  bool isAllInputsValid() {
+    return isPasswordValid(loginObject.password) &&
+        isUserNameValid(loginObject.userName);
   }
 }
 
@@ -93,10 +112,14 @@ mixin LoginViewModelInputs {
   Sink get inputUserName;
 
   Sink get inputPassword;
+
+  Sink get inputIsAllInputValid;
 }
 
 mixin LoginViewModelOutputs {
   Stream<bool> get outputIsUserNameValid;
 
   Stream<bool> get outputIsPasswordValid;
+
+  Stream<bool> get outputIsAllInputsValid;
 }

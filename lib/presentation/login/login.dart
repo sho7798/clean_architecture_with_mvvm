@@ -90,16 +90,25 @@ class _LoginViewState extends State<LoginView> {
                   ),
                 ),
                 SizedBox(height: AppSize.s28),
-                Padding(padding: EdgeInsets.only(
-                    left: AppPadding.p28, right: AppPadding.p28),
-                    child: StreamBuilder(
-                      stream: // todo add me later,
-                      , builder: (context, snapshot) {
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: AppPadding.p28,
+                    right: AppPadding.p28,
+                  ),
+                  child: StreamBuilder<bool>(
+                    stream: viewModel.outputIsAllInputsValid,
+                    builder: (context, snapshot) {
                       return ElevatedButton(
-                          onPressed: () {}, child: Text(AppStrings.login));
+                        onPressed: (snapshot.data ?? false)
+                            ? () {
+                                viewModel.login();
+                              }
+                            : null,
+                        child: Text(AppStrings.login),
+                      );
                     },
-                    )
-                )
+                  ),
+                ),
               ],
             ),
           ),
