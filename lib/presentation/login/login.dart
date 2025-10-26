@@ -1,10 +1,10 @@
 import 'package:clean_architecture_mvvm/presentation/login/login_viewmodel.dart';
 import 'package:clean_architecture_mvvm/presentation/resources/assets_manager.dart';
 import 'package:clean_architecture_mvvm/presentation/resources/color_manager.dart';
+import 'package:clean_architecture_mvvm/presentation/resources/routes_manager.dart';
 import 'package:clean_architecture_mvvm/presentation/resources/strings_manager.dart';
 import 'package:clean_architecture_mvvm/presentation/resources/values_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -34,8 +34,8 @@ class _LoginViewState extends State<LoginView> {
 
   Widget getContentWidget() {
     return Scaffold(
+      backgroundColor: ColorManager.white,
       body: Container(
-        height: MediaQuery.of(context).size.height,
         padding: EdgeInsets.only(top: AppPadding.p100),
         color: ColorManager.white,
         child: SingleChildScrollView(
@@ -53,15 +53,19 @@ class _LoginViewState extends State<LoginView> {
                   child: StreamBuilder(
                     stream: viewModel.outputIsPasswordValid,
                     builder: (context, snapshot) {
-                      return TextFormField(
-                        keyboardType: TextInputType.emailAddress,
-                        controller: userNameController,
-                        decoration: InputDecoration(
-                          hintText: AppStrings.username,
-                          labelText: AppStrings.username,
-                          errorText: (snapshot.data ?? true)
-                              ? null
-                              : AppStrings.usernameError,
+                      return SizedBox(
+                        width: double.infinity,
+                        height: AppSize.s40,
+                        child: TextFormField(
+                          keyboardType: TextInputType.emailAddress,
+                          controller: userNameController,
+                          decoration: InputDecoration(
+                            hintText: AppStrings.username,
+                            labelText: AppStrings.username,
+                            errorText: (snapshot.data ?? true)
+                                ? null
+                                : AppStrings.usernameError,
+                          ),
                         ),
                       );
                     },
@@ -99,15 +103,55 @@ class _LoginViewState extends State<LoginView> {
                   child: StreamBuilder<bool>(
                     stream: viewModel.outputIsAllInputsValid,
                     builder: (context, snapshot) {
-                      return ElevatedButton(
-                        onPressed: (snapshot.data ?? false)
-                            ? () {
-                                viewModel.login();
-                              }
-                            : null,
-                        child: Text(AppStrings.login),
+                      return SizedBox(
+                        width: double.infinity,
+                        height: AppSize.s40,
+                        child: ElevatedButton(
+                          onPressed: (snapshot.data ?? false)
+                              ? () {
+                                  viewModel.login();
+                                }
+                              : null,
+                          child: Text(AppStrings.login),
+                        ),
                       );
                     },
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: AppPadding.p8,
+                    // left: AppPadding.p28,
+                    // right: AppPadding.p28,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pushReplacementNamed(
+                            context,
+                            Routes.forgotPasswordRoute,
+                          );
+                        },
+                        child: Text(
+                          AppStrings.forgetPassword,
+                          style: Theme.of(context).textTheme.labelMedium,
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pushReplacementNamed(
+                            context,
+                            Routes.registerRoute,
+                          );
+                        },
+                        child: Text(
+                          AppStrings.registerText,
+                          style: Theme.of(context).textTheme.labelMedium,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
