@@ -35,6 +35,7 @@ class _LoginViewState extends State<LoginView> {
   Widget getContentWidget() {
     return Scaffold(
       body: Container(
+        height: MediaQuery.of(context).size.height,
         padding: EdgeInsets.only(top: AppPadding.p100),
         color: ColorManager.white,
         child: SingleChildScrollView(
@@ -42,7 +43,7 @@ class _LoginViewState extends State<LoginView> {
             key: formKey,
             child: Column(
               children: [
-                SvgPicture.asset(ImageAssets.loginIc),
+                Image(image: AssetImage(ImageAssets.splashLogo)),
                 SizedBox(height: AppSize.s28),
                 Padding(
                   padding: EdgeInsets.only(
@@ -131,6 +132,6 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return getContentWidget();
   }
 }
