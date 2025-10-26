@@ -1,5 +1,9 @@
 import 'package:clean_architecture_mvvm/presentation/login/login_viewmodel.dart';
+import 'package:clean_architecture_mvvm/presentation/resources/assets_manager.dart';
+import 'package:clean_architecture_mvvm/presentation/resources/color_manager.dart';
+import 'package:clean_architecture_mvvm/presentation/resources/values_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -9,9 +13,13 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  LoginViewModel viewModel = LoginViewModel(null);
+  LoginViewModel viewModel = LoginViewModel(
+    null,
+  ); // todo pass here login useCase
   TextEditingController userNameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+  final formKey = GlobalKey<FormState>();
 
   bind() {
     viewModel.start();
@@ -20,6 +28,41 @@ class _LoginViewState extends State<LoginView> {
     );
     passwordController.addListener(
       () => viewModel.setPassword(passwordController.text),
+    );
+  }
+
+  Widget getContentWidget() {
+    return Scaffold(
+      body: Container(
+        padding: EdgeInsets.only(top: AppPadding.p100),
+        color: ColorManager.white,
+        child: SingleChildScrollView(
+          child: Form(
+            key: formKey,
+            child: Column(
+              children: [
+                SvgPicture.asset(ImageAssets.loginIc),
+                SizedBox(height: AppSize.s28),
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: AppPadding.p28,
+                    right: AppPadding.p28,
+                  ),
+                  child: StreamBuilder(
+                    stream: viewModel.outputIsPasswordValid,
+                    builder: (context, snapshot) {
+                      return TextFormField(
+                        keyboardType: TextInputType.emailAddress,
+                        controller: userNameController,
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 
