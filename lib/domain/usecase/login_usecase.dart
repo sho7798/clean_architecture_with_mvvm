@@ -18,7 +18,7 @@ class LoginUsecase implements BaseUsecase<LoginUseCaseInput, Authentication> {
       DeviceInfo deviceInfo = await getDeviceDetails();
       final result = await repository!.login(
         LoginRequest(
-          email: input.email,
+          email: input.userName,
           password: input.password,
           imei: deviceInfo.identifier,
           deviceType: deviceInfo.name,
@@ -37,7 +37,7 @@ class LoginUsecase implements BaseUsecase<LoginUseCaseInput, Authentication> {
 }
 
 class LoginUseCaseInput {
-  String? email;
+  String? userName;
   String? password;
-  LoginUseCaseInput({this.email, this.password});
+  LoginUseCaseInput({this.userName, this.password});
 }

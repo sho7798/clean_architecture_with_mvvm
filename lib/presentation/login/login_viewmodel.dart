@@ -12,7 +12,7 @@ class LoginViewModel extends BaseViewModel
   StreamController passwordStreamController =
       StreamController<String>.broadcast();
 
-  var loginObject = LoginObject(email: "", password: "");
+  var loginObject = LoginObject(userName: "", password: "");
 
   LoginUsecase? loginUsecase;
   LoginViewModel(this.loginUsecase);
@@ -38,7 +38,7 @@ class LoginViewModel extends BaseViewModel
   login() async {
     (await loginUsecase?.execute(
       LoginUseCaseInput(
-        email: loginObject.email,
+        userName: loginObject.userName,
         password: loginObject.password,
       ),
     ))?.fold(
