@@ -6,11 +6,11 @@ part of 'responses.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-BaseResponse _$BaseResponseFromJson(Map<String, dynamic> json) => BaseResponse()
+BaseResponse $BaseResponseFromJson(Map<String, dynamic> json) => BaseResponse()
   ..status = (json['status'] as num?)?.toInt()
   ..message = json['message'] as String?;
 
-Map<String, dynamic> _$BaseResponseToJson(BaseResponse instance) =>
+Map<String, dynamic> $BaseResponseToJson(BaseResponse instance) =>
     <String, dynamic>{'status': instance.status, 'message': instance.message};
 
 CustomerResponse _$CustomerResponseFromJson(Map<String, dynamic> json) =>

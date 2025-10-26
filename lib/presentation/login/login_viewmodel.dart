@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:clean_architecture_mvvm/domain/usecase/login_usecase.dart';
 import 'package:clean_architecture_mvvm/presentation/base/baseviewmodel.dart';
 import 'package:clean_architecture_mvvm/presentation/common/freezed_data_classes.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class LoginViewModel extends BaseViewModel
     with LoginViewModelInputs, LoginViewModelOutputs {
@@ -16,7 +16,7 @@ class LoginViewModel extends BaseViewModel
 
   var loginObject = LoginObject(userName: "", password: "");
 
-  LoginUsecase? loginUsecase;
+  LoginUsecase loginUsecase;
   LoginViewModel(this.loginUsecase);
 
   @override
@@ -42,20 +42,20 @@ class LoginViewModel extends BaseViewModel
 
   @override
   login() async {
-    // (await loginUsecase?.execute(
-    //   LoginUseCaseInput(
-    //     userName: loginObject.userName,
-    //     password: loginObject.password,
-    //   ),
-    // ))?.fold(
-    //   (failure) =>
-    //       // left -> failure
-    //       debugPrint(failure.message),
+    (await loginUsecase?.execute(
+      LoginUseCaseInput(
+        userName: loginObject.userName,
+        password: loginObject.password,
+      ),
+    ))?.fold(
+      (failure) =>
+          // left -> failure
+          debugPrint(failure.message),
 
-    //   (data) =>
-    //       // right -> success (data)
-    //       debugPrint(data.customer?.name),
-    // );
+      (data) =>
+          // right -> success (data)
+          debugPrint(data.customer?.name),
+    );
   }
 
   @override

@@ -26,6 +26,7 @@ dependencies:
   device_info: ^2.0.3
   freezed: ^3.2.3
   freezed_annotation: ^3.1.0
+  get_it: ^8.2.0
 
 dev_dependencies:
   flutter_test:
