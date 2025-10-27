@@ -1,3 +1,4 @@
+import 'package:clean_architecture_mvvm/app/di.dart';
 import 'package:clean_architecture_mvvm/presentation/login/login_viewmodel.dart';
 import 'package:clean_architecture_mvvm/presentation/resources/assets_manager.dart';
 import 'package:clean_architecture_mvvm/presentation/resources/color_manager.dart';
@@ -14,9 +15,7 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  LoginViewModel viewModel = LoginViewModel(
-    loginUseCase,
-  ); // todo pass here login useCase
+  LoginViewModel viewModel = instance<LoginViewModel>();
   TextEditingController userNameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
