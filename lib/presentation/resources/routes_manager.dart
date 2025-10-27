@@ -1,6 +1,5 @@
 import 'package:clean_architecture_mvvm/app/di.dart';
 import 'package:clean_architecture_mvvm/presentation/forgot_password/forgot_password.dart';
-import 'package:clean_architecture_mvvm/presentation/login/login.dart';
 import 'package:clean_architecture_mvvm/presentation/main/main_view.dart';
 import 'package:clean_architecture_mvvm/presentation/on_boarding/onboarding.dart';
 import 'package:clean_architecture_mvvm/presentation/register/register.dart';

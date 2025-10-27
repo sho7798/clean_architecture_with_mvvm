@@ -42,12 +42,12 @@ class LoginViewModel extends BaseViewModel
 
   @override
   login() async {
-    (await loginUsecase?.execute(
+    (await loginUsecase.execute(
       LoginUseCaseInput(
         userName: loginObject.userName,
         password: loginObject.password,
       ),
-    ))?.fold(
+    )).fold(
       (failure) =>
           // left -> failure
           debugPrint(failure.message),
