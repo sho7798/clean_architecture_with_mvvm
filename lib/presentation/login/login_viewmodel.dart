@@ -16,7 +16,7 @@ class LoginViewModel extends BaseViewModel
 
   var loginObject = LoginObject(userName: "", password: "");
 
-  LoginUsecase loginUsecase;
+  LoginUseCase loginUsecase;
   LoginViewModel(this.loginUsecase);
 
   @override

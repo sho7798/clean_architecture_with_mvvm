@@ -1,5 +1,6 @@
 import 'package:clean_architecture_mvvm/app/di.dart';
 import 'package:clean_architecture_mvvm/presentation/forgot_password/forgot_password.dart';
+import 'package:clean_architecture_mvvm/presentation/login/login.dart';
 import 'package:clean_architecture_mvvm/presentation/main/main_view.dart';
 import 'package:clean_architecture_mvvm/presentation/on_boarding/onboarding.dart';
 import 'package:clean_architecture_mvvm/presentation/register/register.dart';
@@ -24,7 +25,8 @@ class RouteGenerator {
       case Routes.splashRoute:
         return MaterialPageRoute(builder: (_) => SplashView());
       case Routes.loginRoute:
-        return initLoginModule();
+        initLoginModule();
+        return MaterialPageRoute(builder: (_) => LoginView());
       case Routes.onBoardingRoute:
         return MaterialPageRoute(builder: (_) => OnBoardingView());
       case Routes.registerRoute:

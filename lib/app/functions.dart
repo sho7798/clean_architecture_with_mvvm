@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:clean_architecture_mvvm/domain/model/model.dart';
-import 'package:device_info/device_info.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/services.dart';
 
 Future<DeviceInfo> getDeviceDetails() async {
@@ -19,7 +19,7 @@ Future<DeviceInfo> getDeviceDetails() async {
     } else if (Platform.isIOS) {
       var build = await deviceInfoPlugin.iosInfo;
       name = "${build.name} ${build.model}";
-      identifier = build.identifierForVendor;
+      identifier = build.identifierForVendor.toString();
       version = build.systemVersion;
     }
   } on PlatformException {

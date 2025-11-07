@@ -8,8 +8,10 @@ import 'package:clean_architecture_mvvm/domain/repository/repository.dart';
 import 'package:clean_architecture_mvvm/domain/usecase/base_usecase.dart';
 import 'package:dartz/dartz.dart';
 
-class LoginUsecase implements BaseUsecase<LoginUseCaseInput, Authentication> {
+class LoginUseCase implements BaseUseCase<LoginUseCaseInput, Authentication> {
   Repository? repository;
+
+  LoginUseCase(this.repository);
   @override
   Future<Either<Failure, Authentication>> execute(
     LoginUseCaseInput input,

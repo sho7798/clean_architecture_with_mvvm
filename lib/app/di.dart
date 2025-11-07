@@ -12,43 +12,42 @@ import 'package:internet_connection_checker_plus/internet_connection_checker_plu
 
 import 'app_prefs.dart';
 
-final instance = GetIt.instance;
+// This is our global ServiceLocator
+GetIt getIt = GetIt.instance;
 
 Future<void> initAppModule() async {
   final sharedPrefs = await SharedPreferences.getInstance();
 
   // shared prefs instance
-  instance.registerLazySingleton<SharedPreferences>(() => sharedPrefs);
+  getIt.registerLazySingleton<SharedPreferences>(() => sharedPrefs);
 
   // app prefs instance
-  instance.registerLazySingleton<AppPreferences>(
-    () => AppPreferences(instance()),
-  );
+  getIt.registerLazySingleton<AppPreferences>(() => AppPreferences(getIt()));
 
   //network info
-  instance.registerLazySingleton<NetworkInfo>(
+  getIt.registerLazySingleton<NetworkInfo>(
     () => NetworkInfoImpl(InternetConnection()),
   );
 
   //dio factory
-  instance.registerLazySingleton<DioFactory>(() => DioFactory());
+  getIt.registerLazySingleton<DioFactory>(() => DioFactory());
 
   //app service client
-  final dio = await instance<DioFactory>().getDio();
-  instance.registerLazySingleton<AppServiceClient>(() => AppServiceClient(dio));
+  final dio = await getIt<DioFactory>().getDio();
+  getIt.registerLazySingleton<AppServiceClient>(() => AppServiceClient(dio));
 
   //remote data source
-  instance.registerLazySingleton<RemoteDataSource>(
+  getIt.registerLazySingleton<RemoteDataSource>(
     () => RemoteDataSourceImplementer(),
   );
 
   // repository
-  instance.registerLazySingleton<Repository>(() => RepositoryImpl());
+  getIt.registerLazySingleton<Repository>(() => RepositoryImpl());
 }
 
 initLoginModule() {
-  if (!GetIt.I.isRegistered<LoginUsecase>()) {
-    instance.registerFactory<LoginUsecase>(() => LoginUsecase());
-    instance.registerFactory<LoginViewModel>(() => LoginViewModel(instance()));
+  if (!GetIt.I.isRegistered<LoginUseCase>()) {
+    getIt.registerFactory<LoginUseCase>(() => LoginUseCase(getIt()));
+    getIt.registerFactory<LoginViewModel>(() => LoginViewModel(getIt()));
   }
 }
